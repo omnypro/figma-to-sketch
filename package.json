@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "Import Figma variable exports into Sketch.",
   "author": "Bryan Veloso",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omnypro/figma-to-sketch.git"
+  },
   "engines": {
     "sketch": ">=2025.3"
   },
