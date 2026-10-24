@@ -1,5 +1,6 @@
 import sketch from 'sketch'
 import fs from '@skpm/fs'
+import { applyPlan } from './apply.js'
 import { parseColors } from './convert.js'
 import { planImport } from './plan.js'
 
@@ -42,8 +43,7 @@ export default function onRun() {
   const { colors, skipped } = parseColors(tree)
   const plan = planImport(document.swatches, colors)
 
-  for (const { swatch, hex } of plan.update) swatch.color = hex
-  for (const { name, hex } of plan.add) document.swatches.append({ name, color: hex })
+  applyPlan(document, sketch.Swatch, plan)
 
   sketch.UI.alert('Import Figma Colors', summary(plan, skipped))
 }
