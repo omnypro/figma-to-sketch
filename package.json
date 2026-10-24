@@ -1,0 +1,27 @@
+{
+  "name": "figma-to-sketch",
+  "version": "0.1.0",
+  "description": "Import Figma variable exports into Sketch.",
+  "author": "Bryan Veloso",
+  "engines": {
+    "sketch": ">=2025.3"
+  },
+  "skpm": {
+    "name": "Figma to Sketch",
+    "manifest": "src/manifest.json",
+    "main": "figma-to-sketch.sketchplugin"
+  },
+  "scripts": {
+    "build": "skpm-build",
+    "watch": "skpm-build --watch",
+    "link": "skpm-link",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@skpm/fs": "^0.2.6"
+  },
+  "devDependencies": {
+    "@babel/runtime": "^7.29.10",
+    "@skpm/builder": "^1.0.0"
+  }
+}

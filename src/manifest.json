@@ -1,0 +1,17 @@
+{
+  "compatibleVersion": "2025.3",
+  "bundleVersion": 1,
+  "identifier": "pro.omny.figma-to-sketch",
+  "commands": [
+    {
+      "name": "Import Figma Colors",
+      "identifier": "import-colors",
+      "script": "./import-colors.js",
+      "handler": "onRun"
+    }
+  ],
+  "menu": {
+    "title": "Figma to Sketch",
+    "items": ["import-colors"]
+  }
+}
