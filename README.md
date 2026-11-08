@@ -27,6 +27,7 @@ Open a document, then choose Plugins → Figma to Sketch → Import Figma Colors
 - If a color is renamed in Figma, the old one stays and the new name appears next to it.
 - Opacity is kept.
 - Aliases to another color in the same file are followed.
+- A `$type` set on a group applies to the colors inside it.
 - Variables that aren't colors, colors outside sRGB, and aliases that don't resolve are skipped.
 
 ## Tests
