@@ -79,3 +79,33 @@ test('names a color by its path, without the leading Color group', () => {
   })
   expect(colors).toEqual([{ name: 'Red/red-1', hex: '#fcbeb9ff' }])
 })
+
+const untyped = (hex) => ({ $value: { colorSpace: 'srgb', components: [0, 0, 0], alpha: 1, hex } })
+
+test('reads the type of a color from its group', () => {
+  const { colors, skipped } = parseColors({ Brand: { $type: 'color', primary: untyped('#112233') } })
+  expect(colors).toEqual([{ name: 'Brand/primary', hex: '#112233ff' }])
+  expect(skipped).toEqual([])
+})
+
+test('reads the type from the nearest group above a nested color', () => {
+  const { colors } = parseColors({ Brand: { $type: 'color', Dark: { primary: untyped('#112233') } } })
+  expect(colors.map((c) => c.name)).toEqual(['Brand/Dark/primary'])
+})
+
+test('prefers the type on the color over the type on its group', () => {
+  const { colors, skipped } = parseColors({ Space: { $type: 'color', small: number(4) } })
+  expect(colors).toEqual([])
+  expect(skipped).toEqual([{ path: 'Space/small', reason: 'not a color (number)' }])
+})
+
+test('resolves an alias to a color that gets its type from a group', () => {
+  const { colors } = parseColors({
+    Color: { $type: 'color', Red: { 'red-1': untyped('#FF0000') } },
+    Semantic: { $type: 'color', danger: { $value: '{Color.Red.red-1}' } },
+  })
+  expect(colors).toEqual([
+    { name: 'Red/red-1', hex: '#ff0000ff' },
+    { name: 'Semantic/danger', hex: '#ff0000ff' },
+  ])
+})
